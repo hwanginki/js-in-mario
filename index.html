@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title> Super Mario Worle</title>
+
+    <!-- 부트스크랩 사용-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <meta name="keywords" content="Florian Rappl, Mario5, Regensburg, Super, Mario, HTML5, JavaScript, MVC, Level, Leveleditor, Editor, Mario, Bros" />
+    <meta name="description" content="Play, edit, save and rate levels in the Mario universe directly in your browser." />
+    <meta name="author" content="Martin Buchner, Patrick Saar, Florian Rappl" />
+    <meta name="viewport" content="width=640, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+    <link href="/Content/mario.css?v=cWIlPmFqmmap4kVwU3SODVuEA3I_tuJPgJZsK9q4Gzs1" rel="stylesheet" />
+    <link rel="shortcut icon" href = "Content/itemimg/Mario-Red-Mushroom.ico"/>
+
+</head>
+
+
+<body class="container">
+    <!--  class="no-overflow" -->
+
+    <nav>
+        <ul class="nav nav-pills nav-justified">
+            <li class="nav-item">
+                <div class="btn btn-primary btn-lg" id="menuButton">뒤로</div>
+            </li>
+            <li class="nav-item">
+                <div class="btn btn-outline-warning btn-lg" id="controlsButton"> 조작법 </div>
+            </li>
+            <li class="nav-item">
+                <div class="btn btn-outline-info btn-lg" id="controlsButton1"> 설명</div>
+            </li>
+            <li class="nav-item">
+                <div class="btn btn-outline-info btn-lg" id="infoButton1"> about</div>
+            </li>
+            <li class="nav-item">
+                <div class="btn btn-danger btn-lg" id="soundButton"><img src="/Content/sound.png" width="30" data-sound-on="ON" data-sound-off="OFF" /></div>
+            </li>
+            <!-- <div class="btn btn-outline-info btn-lg" id="infoButton2"> 후원 </div> -->
+        </ul>
+    </nav>
+
+    <script>
+        $(document).ready(function() {
+            var keys = new KeyBoard();
+            var level = new Level('world');
+
+            var nextCampaign = function() {
+                level.pause();
+                var settings = level.exportSaveGame();
+                level.reset();
+                level.load(definedLevels[level.id + 1]);
+                level.importSaveGame(settings);
+                level.start();
+            };
+
+            var gameOver = function() {
+                level.load(definedLevels[0]);
+                level.start();
+            };
+
+            level.setInput(keys);
+            level.load(definedLevels[0]);
+            level.setDeadCallback(gameOver);
+            level.setNextCallback(nextCampaign);
+            level.start();
+        });
+    </script>
+    </div>
+    <!-- <div id="loading" class="spinner-border text-warning"> -->
+        <!-- <script>document.write('<p><img src="/Content/startloading.gif" border=0></p><p>HTML5 Mario is loadinaaag ...</p>')</script> -->
+
+        <noscript>This game requires JavaScript!</noscript>
+
+        <!-- 조작법 -->
+    </div>
+    <div id="sections">
+
+        <div id="controls" class="layer">
+            <div class="exit">X</div>
+            <p><span class="control"> <img  id="arrow-left" src="content/arrow.png"></span> 왼쪽 </p>
+            <p><span class="control"><img  id="arrow-right" src="content/arrow.png"></span> 오른쪽 </p>
+            <p><span class="control"> <img  id="arrow-up" src="content/arrow.png"></span> 점프 </p>
+            <p><span class="control"> <img  id="arrow-down" src="content/arrow.png"> </span> 앉기 </p>
+            <p><span class="control">ctrl</span> 공격 + 빠른대쉬 </p>
+        </div>
+
+        <!-- 아이템 설명 -->
+        <div id="controls1" class="layer">
+            <div class="exit">X</div>
+            <p style="font-size:30px;"> <img src="Content/itemimg/Mario-icon.png" width="50px" height="30px" alt="마리오"> : 마리오 </p>
+            <p style="font-size:30px;"> <img src="Content/itemimg/Coin-icon.png" width="50px" height="30px" alt="마리오"> : 코인 </p>
+            <p style="font-size:30px;"> <img src="Content/itemimg/Mushroom-icon.png" width="50px" height="30px" alt="마리오"> : 버섯 </p>
+            <p style="font-size:30px;"> <img src="Content/itemimg/Flower-icon.png" width="50px" height="30px" alt="마리오"> : 꽃(공격추가) </p>
+            <p style="font-size:30px;"> <img src="Content/itemimg/Star-icon.png" width="50px" height="30px" alt="마리오"> : 무적 10초 시간 </p>
+            <p style="font-size:30px;"> <img src="Content/itemimg/Block-Question-icon.png" width="50px" height="30px" alt="마리오"> : 랜덤박스 </p>
+        </div>
+
+        <div id="info1" class="layer">
+            <div class="exit">X</div>
+            <p> I'm <i> INKI HWANG </i> and softwere engineering. </p>
+            <p> Thank you for playing </p>
+            <p> The MRIO game. </p>
+            <p> TEAM of NAME is " "</p>
+        </div>
+
+        <div id="info2" class="layer">
+            <div class="exit">X</div>
+            <p> i'm</p>
+            <p>Level design and artwork: <i>Martin Buchner</i></p>
+            <p>Coding and webpage: <i>Florian Rappl</i></p>
+        </div>
+
+        <div id="success" class="layer">
+            <div class="exit">X</div>
+            <p>The level has been saved successfully.</p>
+        </div>
+        <div id="failure" class="layer">
+            <div class="exit">X</div>
+            <p>The level could not be saved.</p>
+        </div>
+        <div id="thanks" class="layer">
+            <div class="exit">X</div>
+            <p>Thanks for your vote!</p>
+        </div>
+        <div id="dynamic" class="layer">
+            <div class="exit">X</div>
+            <div id="dynamic-content"></div>
+        </div>
+        <div id="menu">
+            <img src="/Content/images/menu0.jpg" class="dia" alt="Dia" />
+            <img src="/Content/images/menu1.jpg" class="dia" alt="Dia" />
+            <img src="/Content/images/menu2.jpg" class="dia" alt="Dia" />
+            <img src="/Content/images/menu3.jpg" class="dia" alt="Dia" />
+            <img src="/Content/images/menu4.jpg" class="dia" alt="Dia" />
+            <img src="/Content/images/menu5.jpg" class="dia" alt="Dia" />
+            <img src="/Content/images/menu6.jpg" class="dia" alt="Dia" />
+            <img src="/Content/images/menu7.jpg" class="dia" alt="Dia" />
+            <img src="/Content/images/menu8.jpg" class="dia" alt="Dia" />
+        </div>
+
+        <div id="edit" class="section">
+            <div id="edit_world">
+            </div>
+            <div id="editorOptions" class="editorPanel">
+                <h3>Options</h3>
+                <p>Level width in blocks: <span id="range_value">100</span></p>
+                <p><input value="100" type="range" min="30" max="400" step="1" id="canvas_width" /></p>
+            </div>
+            <div id="editorBricks" class="editorPanel">
+                <h3>Bricks</h3>
+                <div id="editorBricksItems" class="editorItems"></div>
+            </div>
+            <div id="editorFigures" class="editorPanel">
+                <h3>Figuren</h3>
+                <div id="editorFiguresItems" class="editorItems"></div>
+            </div>
+            <div id="editorSpecial" class="editorPanel">
+                <h3>Special bricks</h3>
+                <div id="editorSpecialItems" class="editorItems"></div>
+            </div>
+        </div>
+
+        <div id="game" class="section">
+            <div id="coinNumber" class="gauge">0</div>
+            <div id="coin" class="gaugeSprite"></div>
+            <div id="liveNumber" class="gauge">0</div>
+            <div id="live" class="gaugeSprite"></div>
+
+
+            <div id="world">
+                <!-- 게임화면 -->
+            </div>
+
+
+        </div>
+        <div id="endingContainer">
+            <div id="ending">
+                <div id="endingAnimation">
+                </div>
+
+            </div>
+        </div>
+        <div id="levelloading" class="section">
+            <!-- This is intentionally empty. -->
+        </div>
+        <div id="ajax" class="section">
+            <!-- This is intentionally empty. -->
+        </div>
+
+        <div id="continue" class="section">
+            <br><br><br><br>
+            <p > 마지막 게임을 계속하겠습니까? </br> 아니면 다시 시작하겠습니까? </p> <br>
+            <img style="width:50px; height:50px;" src="Content/itemimg/Flower-icon.png"></style>
+        </div>
+
+
+    </div>
+
+    <div id="bottompanel">
+        <nav id="bottomnav">
+
+            <div id="menu_buttons">
+
+                <div id="newGame" class="btn btn-primary btn-lg btn-block">Play</div>
+            </div>
+
+
+            <div id="continue_buttons">
+                <div id="yesContinue" class="btn btn-primary btn-lg btn-block"> 계속 </div>
+                <div id="noContinue" class="btn btn-outline-danger btn-lg btn-block"> 다시 시작 </div>
+                <br><Br><br>
+            </div>
+
+            <div id="game_buttons">
+                <div id="aButton" class="btn btn-danger rounded-circle btn-lg">a</div>
+                <div id="lButton" class="btn btn-outline-warning btn-lg">&larr;</div>
+                <div id="uButton" class="btn btn-outline-warning btn-lg">&uarr;</div>
+                <div id="dButton" class="btn btn-outline-warning btn-lg">&darr;</div>
+                <div id="rButton" class="btn btn-outline-warning btn-lg">&rarr;</div>
+            </div>
+        </nav>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+    <script src="/Scripts/webapp.js?v=cM7WgaMZO-sjsCJinvAr781z6LYcOhUQiHjrT5uYT_01"></script>
+    <script src="/Scripts/mario.js?v=g8KLnHB3duifRq0oNtWo5Ku6V9Lo-pV0pyhQZ9DOMjc1"></script>
+    <script src="http://cdn.shareaholic.com/media/js/jquery.shareaholic-publishers-sb.min.js"></script>
+    <script src="/Scripts/openid-jquery.js"></script>
+    <script src="/Scripts/openid-en.js"></script>
+
+</body>
+
+</html>
